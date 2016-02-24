@@ -1,56 +1,71 @@
 class GuestsController < ApplicationController
   def index
-    @guests = fetch_guests
+    @guests = fetch_guests(' ')
   end
 
   def list
-    @guests = fetch_guests
     if params[:search_text].present?
-       @guests = @guests.select{|guest| guest.name.downcase.include? params[:search_text].downcase}
-      #  @filtered_guests = []
-      #  @filtered_guests << @guests.select{|guest| guest.name.downcase.include? params[:search_text].downcase}
-      #  @filtered_guests << @guests.select{|guest| guest.year.downcase.include? params[:search_text].downcase}
-      #  @filtered_guests << @guests.select{|guest| guest.show_date.downcase.include? params[:search_text].downcase}
-      #  @filtered_guests << @guests.select{|guest| guest.occupation.include? params[:search_text].downcase}
-      #  @filtered_guests << @guests.select{|guest| guest.occupation_group.include? params[:search_text].downcase}
-      #  @guests = @filtered_guests
+      sql_query = "SELECT * FROM guests WHERE name LIKE '%#{params[:search_text]}%'
+                  OR occupation LIKE '%#{params[:search_text]}%'
+                  OR occupation_group LIKE '%#{params[:search_text]}%'
+                  ORDER BY year asc"
+    else
+      sql_query = ' '
     end
-    puts @guests.inspect
-    # puts @filtered_guests.inspect
+    @guests = fetch_guests(sql_query)
+
   end
 
   def year
-    @guests = fetch_guests.select{|guest| guest.year == params[:year]}
-    if @guests.nil?
-      render text: "Product not found.", status: 404
+    if params[:search_text].present?
+      sql_query = "SELECT * FROM guests WHERE name LIKE '%#{params[:search_text]}%'
+                  OR occupation LIKE '%#{params[:search_text]}%'
+                  OR occupation_group LIKE '%#{params[:search_text]}%'
+                  ORDER BY year asc"
+    else
+      sql_query = ' '
     end
+    @guests = fetch_guests(sql_query)
 
-    # need to add
-      # if params[:search_text].present?
-      #    @guests = @guests.select{|guest| guest.name.downcase.include? params[:search_text].downcase}
-      #   #  blah
-      # end
+    @guests = @guests.select{|guest| guest.year == params[:year]}
+    if @guests.nil?
+      render text: "No such guest", status: 404
+    end
 
     render :list
   end
 
   def occupation
-    @guests = fetch_guests.select{|guest| guest.occupation_group == params[:occupation_group]}
-    if @guests.nil?
-      render text: "Product not found.", status: 404
+    if params[:search_text].present?
+      sql_query = "SELECT * FROM guests WHERE name LIKE '%#{params[:search_text]}%'
+                  OR occupation LIKE '%#{params[:search_text]}%'
+                  OR occupation_group LIKE '%#{params[:search_text]}%'
+                  ORDER BY year asc"
+    else
+      sql_query = ' '
     end
+    @guests = fetch_guests(sql_query)
 
-    # need to add
-      # if params[:search_text].present?
-      #    @guests = @guests.select{|guest| guest.name.downcase.include? params[:search_text].downcase}
-      #   #  blah
-      # end
+    @guests = @guests.select{|guest| guest.occupation_group == params[:occupation_group]}
+    if @guests.nil?
+      render text: "No such guest", status: 404
+    end
 
     render :list
   end
 
   def name
-    @guests = fetch_guests.select{|guest| guest.name == params[:name]}
+    if params[:search_text].present?
+      sql_query = "SELECT * FROM guests WHERE name LIKE '%#{params[:search_text]}%'
+                  OR occupation LIKE '%#{params[:search_text]}%'
+                  OR occupation_group LIKE '%#{params[:search_text]}%'
+                  ORDER BY year asc"
+    else
+      sql_query = ' '
+    end
+    @guests = fetch_guests(sql_query)
+
+    @guests = @guests.select{|guest| guest.name == params[:name]}
     if @guests.nil?
       render text: "No such guest", status: 404
     end
@@ -58,15 +73,27 @@ class GuestsController < ApplicationController
   end
 
   def name_starter
-    @guests = fetch_guests.select{|guest| guest.name_starter == params[:name_starter]}
+    if params[:search_text].present?
+      sql_query = "SELECT * FROM guests WHERE name LIKE '%#{params[:search_text]}%'
+                  OR occupation LIKE '%#{params[:search_text]}%'
+                  OR occupation_group LIKE '%#{params[:search_text]}%'
+                  ORDER BY year asc"
+    else
+      sql_query = ' '
+    end
+    @guests = fetch_guests(sql_query)
+
+    @guests = @guests.select{|guest| guest.name_starter == params[:name_starter]}
     if @guests.nil?
       render text: "No such guest", status: 404
     end
     render :list
   end
 
-  def fetch_guests
-    sql_query = "select * from guests order by year asc"
+  def fetch_guests(sql_query)
+    if sql_query == ' '
+      sql_query = "select * from guests order by year asc"
+    end
     guests = ActiveRecord::Base.connection.execute(sql_query)
     # turn the 'dumb' hash data into an object
 

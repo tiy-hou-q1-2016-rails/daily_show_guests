@@ -5,6 +5,19 @@
 </div>
 <%= render "shared/search" %>
 <div class="container">
+  <% if @guests.empty? %>
+  <div class="alert alert-info">
+    <em>No Contacts Found for "<%= params[:search_text] %>"</em>
+  </div>
+  <% elsif params[:search_text] == nil %>
+    <p>
+      <em><%= pluralize @guests.count, 'guest' %> found</em>
+    </p>
+  <% else %>
+    <p>
+      <em><%= pluralize @guests.count, 'guest' %> found for "<%= params[:search_text] %>"</em>
+    </p>
+  <% end %>
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
