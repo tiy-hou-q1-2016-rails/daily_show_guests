@@ -1,3 +1,3 @@
 class Guest
-  attr_accessor :id, :name, :year, :occupation, :show_date, :occupation_group
+  attr_accessor :name, :year, :occupation, :show_date, :occupation_group
 end
