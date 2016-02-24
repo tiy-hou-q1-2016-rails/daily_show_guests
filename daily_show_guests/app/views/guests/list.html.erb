@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="page-header">
+    <h1>Daily Show Guests <small>data from fivethirtyeight</small></h1>
+  </div>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>
+          Guest Name
+        </th>
+        <th>
+          Year
+        </th>
+        <th>
+          Air Date
+        </th>
+        <th>
+          Specific Occupation
+        </th>
+        <th>
+          General Occupation (Group)
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @guests.each do |guest| %>
+        <tr>
+          <td>
+            <%= guest.name %>
+          </td>
+          <td>
+            <%= guest.year %>
+          </td>
+          <td>
+            <%= guest.show_date %>
+          </td>
+          <td>
+            <%= guest.occupation %>
+          </td>
+          <td>
+            <%= guest.occupation_group %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
