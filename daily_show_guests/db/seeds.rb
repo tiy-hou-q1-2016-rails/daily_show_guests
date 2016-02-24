@@ -13,6 +13,14 @@ create table guests(
        occupation_group varchar(255) NOT NULL
 );
 COPY guests ("name","year","occupation","show_date","occupation_group") FROM '#{Rails.root}/daily_show_guests.csv' DELIMITER ',' CSV HEADER;
+
+DELETE FROM guests
+WHERE id IN (SELECT id
+              FROM (SELECT id,
+                             ROW_NUMBER() OVER (partition BY name, year, occupation, show_date, occupation_group ORDER BY id) AS rnum
+                     FROM guests) t
+              WHERE t.rnum > 1);
+
 SQLQUERY
 
 # ------ starts ruby code again
