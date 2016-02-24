@@ -1,0 +1,57 @@
+<nav class="well">
+  <div class="container">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Year <span class="caret"></span></a>
+       <ul class="dropdown-menu">
+         <li><a href="/guests/list">Any</a></li>
+         <% (1999..2015).to_a.each do |year| %>
+            <li><a href="/years/<%= year %>"><%= year %></a></li>
+         <% end %>
+       </ul>
+      </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">General Occupation <span class="caret"></span></a>
+       <ul class="dropdown-menu">
+         <li><a href="/guests/list">Any</a></li>
+         <% @guests.map{|guest| guest.occupation_group}.uniq.sort.each do |occupation| %>
+           <li><a href="/occupations/<%= occupation %>"><%= occupation %></a></li>
+         <% end %>
+       </ul>
+      </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Guest Name (all)<span class="caret"></span></a>
+       <ul class="dropdown-menu">
+         <li><a href="/guests/list">Any</a></li>
+         <% @guests.map{|guest| guest.name}.uniq.sort.each do |name| %>
+           <li><a href="/names/<%= name %>"><%= name %></a></li>
+         <% end %>
+       </ul>
+      </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Guest Name (A-Z)<span class="caret"></span></a>
+       <ul class="dropdown-menu">
+         <li><a href="/guests/list">Any</a></li>
+         <% ('A'..'Z').to_a.each do |name_starter| %>
+            <li><a href="/name_starters/<%= name_starter %>"><%= name_starter %></a></li>
+         <% end %>
+       </ul>
+      </li>
+      </ul>
+      <form class="navbar-form navbar-left" role="search" action="#" method="get">
+        <div class="form-group">
+          <label for="search_text">Search Text</label>
+          <input type="text" name="search_text" value="" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+    </div>
+  </div>
+</nav>
