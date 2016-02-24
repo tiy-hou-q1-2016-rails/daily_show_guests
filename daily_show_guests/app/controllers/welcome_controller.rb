@@ -6,7 +6,6 @@ class WelcomeController < ApplicationController
 
     @guests = @guests.map do |hash|
       guest = Guest.new
-      guest.id = hash["id"]
       guest.name = hash["name"]
       guest.year = hash["year"]
       guest.occupation = hash["occupation"]
