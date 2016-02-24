@@ -19,6 +19,28 @@ class GuestsController < ApplicationController
     # puts @filtered_guests.inspect
   end
 
+  def year
+    @guests = fetch_guests.select{|guest| guest.year == params[:year]}
+    if @guests.nil?
+      render text: "Product not found.", status: 404
+    end
+
+    # need to add
+      # if params[:search_text].present?
+      #    @guests = @guests.select{|guest| guest.name.downcase.include? params[:search_text].downcase}
+      #   #  blah
+      # end
+
+    render :list
+  end
+
+  def occupation
+  end
+
+  def name
+
+  end
+
   def fetch_guests
     sql_query = "select * from guests order by year asc"
     guests = ActiveRecord::Base.connection.execute(sql_query)
