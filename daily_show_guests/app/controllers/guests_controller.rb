@@ -35,10 +35,34 @@ class GuestsController < ApplicationController
   end
 
   def occupation
+    @guests = fetch_guests.select{|guest| guest.occupation_group == params[:occupation_group]}
+    if @guests.nil?
+      render text: "Product not found.", status: 404
+    end
+
+    # need to add
+      # if params[:search_text].present?
+      #    @guests = @guests.select{|guest| guest.name.downcase.include? params[:search_text].downcase}
+      #   #  blah
+      # end
+
+    render :list
   end
 
   def name
+    @guests = fetch_guests.select{|guest| guest.name == params[:name]}
+    if @guests.nil?
+      render text: "No such guest", status: 404
+    end
+    render :list
+  end
 
+  def name_starter
+    @guests = fetch_guests.select{|guest| guest.name_starter == params[:name_starter]}
+    if @guests.nil?
+      render text: "No such guest", status: 404
+    end
+    render :list
   end
 
   def fetch_guests
@@ -49,13 +73,13 @@ class GuestsController < ApplicationController
     guests = guests.map do |hash|
       guest = Guest.new
       guest.year = hash["year"]
-      guest.occupation = hash["occupation"]
+      guest.occupation = hash["occupation"].capitalize
       guest.show_date = hash["show_date"]
-      guest.occupation_group = hash["occupation_group"]
+      guest.occupation_group = hash["occupation_group"].capitalize
       guest.name = hash["name"]
       guest
     end
-    puts guests.inspect
+    # puts guests.inspect
     guests
   end
 end

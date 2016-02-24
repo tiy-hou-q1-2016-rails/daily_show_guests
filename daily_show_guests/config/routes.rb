@@ -13,8 +13,9 @@ Rails.application.routes.draw do
   get '/guests/index' => 'guests#index'
   get '/guests/list' => 'guests#list'
   get "/years/:year" => 'guests#year'
-  get "/occupations/:occupation" => 'guests#occupation'
+  get "/occupations/:occupation_group" => 'guests#occupation'
   get "/names/:name" => 'guests#name'
+  get "/name_starters/:name_starter" => 'guests#name_starter'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
