@@ -11,33 +11,32 @@
   </div>
   <% elsif params[:search_text] == nil %>
     <p>
-      <em><%= pluralize @guests.count, 'guest' %> found</em>
+      <em><%= pluralize @guest_count, 'guest' %> found</em>
     </p>
   <% else %>
     <p>
-      <em><%= pluralize @guests.count, 'guest' %> found for "<%= params[:search_text] %>"</em>
+      <em><%= pluralize @guest_count, 'guest' %> found: <strong><%= params[:search_text] %><strong></em>
     </p>
   <% end %>
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th>
-          Guest Name
-        </th>
-        <th>
-          Year
-        </th>
-        <th>
-          Air Date
-        </th>
-        <th>
-          Specific Occupation
-        </th>
-        <th>
-          General Occupation (Group)
-        </th>
+        <th>Guest Name</th>
+        <th>Year</th>
+        <th>Air Date</th>
+        <th>Specific Occupation</th>
+        <th>General Occupation (Group)</th>
       </tr>
     </thead>
+    <tfoot>
+      <tr>
+        <th>Guest Name</th>
+        <th>Year</th>
+        <th>Air Date</th>
+        <th>Specific Occupation</th>
+        <th>General Occupation (Group)</th>
+      </tr>
+    </tfoot>
     <tbody>
       <% @guests.each do |guest| %>
         <tr>
@@ -60,4 +59,5 @@
       <% end %>
     </tbody>
   </table>
+  <%= paginate @guests %>
 </div>

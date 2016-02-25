@@ -7,12 +7,13 @@ class GuestsController < ApplicationController
     if params[:search_text].present?
       sql_query = "SELECT * FROM guests WHERE name LIKE '%#{params[:search_text]}%'
                   OR occupation LIKE '%#{params[:search_text]}%'
-                  OR occupation_group LIKE '%#{params[:search_text]}%'
-                  ORDER BY year asc"
+                  OR occupation_group LIKE '%#{params[:search_text]}%'"
     else
       sql_query = ' '
     end
     @guests = fetch_guests(sql_query)
+    @guest_count = @guests.count
+    @guests = Kaminari.paginate_array(@guests).page(params[:page]).per(100)
 
   end
 
@@ -20,8 +21,7 @@ class GuestsController < ApplicationController
     if params[:search_text].present?
       sql_query = "SELECT * FROM guests WHERE name LIKE '%#{params[:search_text]}%'
                   OR occupation LIKE '%#{params[:search_text]}%'
-                  OR occupation_group LIKE '%#{params[:search_text]}%'
-                  ORDER BY year asc"
+                  OR occupation_group LIKE '%#{params[:search_text]}%'"
     else
       sql_query = ' '
     end
@@ -39,8 +39,7 @@ class GuestsController < ApplicationController
     if params[:search_text].present?
       sql_query = "SELECT * FROM guests WHERE name LIKE '%#{params[:search_text]}%'
                   OR occupation LIKE '%#{params[:search_text]}%'
-                  OR occupation_group LIKE '%#{params[:search_text]}%'
-                  ORDER BY year asc"
+                  OR occupation_group LIKE '%#{params[:search_text]}%'"
     else
       sql_query = ' '
     end
@@ -58,8 +57,7 @@ class GuestsController < ApplicationController
     if params[:search_text].present?
       sql_query = "SELECT * FROM guests WHERE name LIKE '%#{params[:search_text]}%'
                   OR occupation LIKE '%#{params[:search_text]}%'
-                  OR occupation_group LIKE '%#{params[:search_text]}%'
-                  ORDER BY year asc"
+                  OR occupation_group LIKE '%#{params[:search_text]}%'"
     else
       sql_query = ' '
     end
@@ -76,8 +74,7 @@ class GuestsController < ApplicationController
     if params[:search_text].present?
       sql_query = "SELECT * FROM guests WHERE name LIKE '%#{params[:search_text]}%'
                   OR occupation LIKE '%#{params[:search_text]}%'
-                  OR occupation_group LIKE '%#{params[:search_text]}%'
-                  ORDER BY year asc"
+                  OR occupation_group LIKE '%#{params[:search_text]}%'"
     else
       sql_query = ' '
     end
