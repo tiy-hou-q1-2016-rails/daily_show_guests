@@ -32,7 +32,7 @@
       <% @guests.each do |guest| %>
         <tr>
           <td>
-            <%= guest.name %>
+            <%= guest.name.titleize %>
           </td>
           <td>
             <%= guest.year %>
@@ -41,10 +41,10 @@
             <%= guest.show_date %>
           </td>
           <td>
-            <%= guest.occupation %>
+            <%= guest.occupation.titleize %>
           </td>
           <td>
-            <%= guest.occupation_group %>
+            <%= guest.occupation_group.titleize %>
           </td>
         </tr>
       <% end %>

@@ -18,7 +18,7 @@
        <ul class="dropdown-menu">
          <li><a href="/guests/list">Any</a></li>
          <% @guests.map{|guest| guest.occupation_group}.uniq.sort.each do |occupation| %>
-           <li><a href="/occupations/<%= occupation %>"><%= occupation %></a></li>
+           <li><a href="/occupations/<%= occupation %>"><%= occupation.titleize %></a></li>
          <% end %>
        </ul>
       </li>
@@ -29,7 +29,7 @@
        <ul class="dropdown-menu">
          <li><a href="/guests/list">Any</a></li>
          <% @guests.map{|guest| guest.name}.uniq.sort.each do |name| %>
-           <li><a href="/names/<%= name %>"><%= name %></a></li>
+           <li><a href="/names/<%= name %>"><%= name.titleize %></a></li>
          <% end %>
        </ul>
       </li>
@@ -39,8 +39,8 @@
        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Guest Name (A-Z)<span class="caret"></span></a>
        <ul class="dropdown-menu">
          <li><a href="/guests/list">Any</a></li>
-         <% ('A'..'Z').to_a.each do |name_starter| %>
-            <li><a href="/name_starters/<%= name_starter %>"><%= name_starter %></a></li>
+         <% ('a'..'z').to_a.each do |name_starter| %>
+            <li><a href="/name_starters/<%= name_starter %>"><%= name_starter.titleize %></a></li>
          <% end %>
        </ul>
       </li>

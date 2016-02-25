@@ -109,13 +109,18 @@ class GuestsController < ApplicationController
     guests = guests.map do |hash|
       guest = Guest.new
       guest.year = hash["year"]
-      guest.occupation = hash["occupation"].capitalize
+      guest.occupation = hash["occupation"]
       guest.show_date = hash["show_date"]
-      guest.occupation_group = hash["occupation_group"].capitalize
-      guest.name = hash["name"]
+      guest.occupation_group = hash["occupation_group"]
+      guest.name = hash["name"].downcase
       guest
     end
     # puts guests.inspect
     guests
   end
+
+  def titleize
+    split(/(\W)/).map(&:capitalize).join
+  end
+
 end
