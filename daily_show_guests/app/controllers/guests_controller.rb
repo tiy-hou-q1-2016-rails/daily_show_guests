@@ -5,6 +5,7 @@ class GuestsController < ApplicationController
     @bar_chart_column = []
     @bar_chart_column = @guests.map {|guest| guest.occupation_group.titleize}.uniq.sort
 
+
     @bar_chart_rows = []
     (1999..2015).to_a.each do |year|
       current_row = []
@@ -19,6 +20,7 @@ class GuestsController < ApplicationController
     @bar_chart_column.unshift('Year')
     @bar_chart_data = @bar_chart_rows.unshift(@bar_chart_column)
     puts @bar_chart_data.inspect
+
   end
 
   def list
