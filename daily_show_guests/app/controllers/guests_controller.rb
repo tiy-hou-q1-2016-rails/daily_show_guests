@@ -1,6 +1,24 @@
 class GuestsController < ApplicationController
   def index
     @guests = fetch_guests(' ')
+
+    @bar_chart_column = []
+    @bar_chart_column = @guests.map {|guest| guest.occupation_group.titleize}.uniq.sort
+
+    @bar_chart_rows = []
+    (1999..2015).to_a.each do |year|
+      current_row = []
+      current_row << year.to_s
+      @bar_chart_column.each do |occupation|
+        intermediate = @guests.select{|guest| guest.occupation_group.include? occupation.downcase}
+        intermediate = intermediate.select{|guest| guest.year == year.to_s}.count
+        current_row << intermediate
+      end
+      @bar_chart_rows << current_row
+    end
+    @bar_chart_column.unshift('Year')
+    @bar_chart_data = @bar_chart_rows.unshift(@bar_chart_column)
+    puts @bar_chart_data.inspect
   end
 
   def list
