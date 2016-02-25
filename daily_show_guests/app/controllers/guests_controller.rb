@@ -30,6 +30,9 @@ class GuestsController < ApplicationController
     @guests = @guests.select{|guest| guest.year == params[:year]}
     if @guests.nil?
       render text: "No such guest", status: 404
+    else
+      @guest_count = @guests.count
+      @guests = Kaminari.paginate_array(@guests).page(params[:page]).per(100)
     end
 
     render :list
@@ -48,6 +51,9 @@ class GuestsController < ApplicationController
     @guests = @guests.select{|guest| guest.occupation_group == params[:occupation_group]}
     if @guests.nil?
       render text: "No such guest", status: 404
+    else
+      @guest_count = @guests.count
+      @guests = Kaminari.paginate_array(@guests).page(params[:page]).per(100)
     end
 
     render :list
@@ -66,6 +72,9 @@ class GuestsController < ApplicationController
     @guests = @guests.select{|guest| guest.name == params[:name]}
     if @guests.nil?
       render text: "No such guest", status: 404
+    else
+      @guest_count = @guests.count
+      @guests = Kaminari.paginate_array(@guests).page(params[:page]).per(100)
     end
     render :list
   end
@@ -83,6 +92,9 @@ class GuestsController < ApplicationController
     @guests = @guests.select{|guest| guest.name_starter == params[:name_starter]}
     if @guests.nil?
       render text: "No such guest", status: 404
+    else
+      @guest_count = @guests.count
+      @guests = Kaminari.paginate_array(@guests).page(params[:page]).per(100)
     end
     render :list
   end
