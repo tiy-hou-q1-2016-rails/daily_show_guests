@@ -7,12 +7,13 @@ class GuestsController < ApplicationController
     if params[:search_text].present?
       sql_query = "SELECT * FROM guests WHERE name LIKE '%#{params[:search_text]}%'
                   OR occupation LIKE '%#{params[:search_text]}%'
-                  OR occupation_group LIKE '%#{params[:search_text]}%'
-                  ORDER BY year asc"
+                  OR occupation_group LIKE '%#{params[:search_text]}%'"
     else
       sql_query = ' '
     end
     @guests = fetch_guests(sql_query)
+    @guest_count = @guests.count
+    @guests = Kaminari.paginate_array(@guests).page(params[:page]).per(100)
 
   end
 
@@ -20,8 +21,7 @@ class GuestsController < ApplicationController
     if params[:search_text].present?
       sql_query = "SELECT * FROM guests WHERE name LIKE '%#{params[:search_text]}%'
                   OR occupation LIKE '%#{params[:search_text]}%'
-                  OR occupation_group LIKE '%#{params[:search_text]}%'
-                  ORDER BY year asc"
+                  OR occupation_group LIKE '%#{params[:search_text]}%'"
     else
       sql_query = ' '
     end
@@ -30,6 +30,9 @@ class GuestsController < ApplicationController
     @guests = @guests.select{|guest| guest.year == params[:year]}
     if @guests.nil?
       render text: "No such guest", status: 404
+    else
+      @guest_count = @guests.count
+      @guests = Kaminari.paginate_array(@guests).page(params[:page]).per(100)
     end
 
     render :list
@@ -39,8 +42,7 @@ class GuestsController < ApplicationController
     if params[:search_text].present?
       sql_query = "SELECT * FROM guests WHERE name LIKE '%#{params[:search_text]}%'
                   OR occupation LIKE '%#{params[:search_text]}%'
-                  OR occupation_group LIKE '%#{params[:search_text]}%'
-                  ORDER BY year asc"
+                  OR occupation_group LIKE '%#{params[:search_text]}%'"
     else
       sql_query = ' '
     end
@@ -49,6 +51,9 @@ class GuestsController < ApplicationController
     @guests = @guests.select{|guest| guest.occupation_group == params[:occupation_group]}
     if @guests.nil?
       render text: "No such guest", status: 404
+    else
+      @guest_count = @guests.count
+      @guests = Kaminari.paginate_array(@guests).page(params[:page]).per(100)
     end
 
     render :list
@@ -58,8 +63,7 @@ class GuestsController < ApplicationController
     if params[:search_text].present?
       sql_query = "SELECT * FROM guests WHERE name LIKE '%#{params[:search_text]}%'
                   OR occupation LIKE '%#{params[:search_text]}%'
-                  OR occupation_group LIKE '%#{params[:search_text]}%'
-                  ORDER BY year asc"
+                  OR occupation_group LIKE '%#{params[:search_text]}%'"
     else
       sql_query = ' '
     end
@@ -68,6 +72,9 @@ class GuestsController < ApplicationController
     @guests = @guests.select{|guest| guest.name == params[:name]}
     if @guests.nil?
       render text: "No such guest", status: 404
+    else
+      @guest_count = @guests.count
+      @guests = Kaminari.paginate_array(@guests).page(params[:page]).per(100)
     end
     render :list
   end
@@ -76,8 +83,7 @@ class GuestsController < ApplicationController
     if params[:search_text].present?
       sql_query = "SELECT * FROM guests WHERE name LIKE '%#{params[:search_text]}%'
                   OR occupation LIKE '%#{params[:search_text]}%'
-                  OR occupation_group LIKE '%#{params[:search_text]}%'
-                  ORDER BY year asc"
+                  OR occupation_group LIKE '%#{params[:search_text]}%'"
     else
       sql_query = ' '
     end
@@ -86,6 +92,9 @@ class GuestsController < ApplicationController
     @guests = @guests.select{|guest| guest.name_starter == params[:name_starter]}
     if @guests.nil?
       render text: "No such guest", status: 404
+    else
+      @guest_count = @guests.count
+      @guests = Kaminari.paginate_array(@guests).page(params[:page]).per(100)
     end
     render :list
   end
@@ -100,13 +109,18 @@ class GuestsController < ApplicationController
     guests = guests.map do |hash|
       guest = Guest.new
       guest.year = hash["year"]
-      guest.occupation = hash["occupation"].capitalize
+      guest.occupation = hash["occupation"]
       guest.show_date = hash["show_date"]
-      guest.occupation_group = hash["occupation_group"].capitalize
-      guest.name = hash["name"]
+      guest.occupation_group = hash["occupation_group"]
+      guest.name = hash["name"].downcase
       guest
     end
     # puts guests.inspect
     guests
   end
+
+  def titleize
+    split(/(\W)/).map(&:capitalize).join
+  end
+
 end

@@ -1,3 +1,24 @@
-// Place all the styles related to the guests controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.home-return {
+  ul {
+    position: fixed;
+    top: 0;
+    right: 0;
+    li {
+      padding: 0;
+      list-style: none;
+      margin: 0;
+        .glyphicon-home {
+          background-color: #003366;
+          color: white;
+          padding: 16px;
+          font-size: 20px;
+        }
+        .glyphicon-arrow-left {
+          background-color: #C0C0C0;
+          color: white;
+          padding: 16px;
+          font-size: 20px;
+        }
+    }
+  }
+}

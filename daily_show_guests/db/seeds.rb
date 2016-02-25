@@ -20,6 +20,9 @@ WHERE id IN (SELECT id
                              ROW_NUMBER() OVER (partition BY year, occupation, show_date, occupation_group, name ORDER BY id) AS rnum
                      FROM guests) t
               WHERE t.rnum > 1);
+UPDATE guests SET name=lower(name);
+UPDATE guests SET occupation=lower(occupation);
+UPDATE guests SET occupation_group=lower(occupation_group);
 
 SQLQUERY
 
