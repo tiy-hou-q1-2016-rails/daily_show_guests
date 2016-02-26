@@ -1,20 +1,28 @@
+$generic_grey: #C0C0C0;
+$generic_navy: #003366;
+
 .home-return {
   ul {
     position: fixed;
     top: 0;
     right: 0;
+    z-index: 1;
     li {
-      padding: 0;
+      padding: 2px;
       list-style: none;
       margin: 0;
+        .glyphicon {
+          border: 1 solid;
+          border-radius: 4px;
+        }
         .glyphicon-home {
-          background-color: #003366;
+          background-color: $generic_navy;
           color: white;
           padding: 16px;
           font-size: 20px;
         }
         .glyphicon-refresh {
-          background-color: #C0C0C0;
+          background-color: $generic_grey;
           color: white;
           padding: 16px;
           font-size: 20px;
@@ -30,5 +38,35 @@
     background-size: contain;
     background-repeat: no-repeat;
     min-height: 200px;
+  }
+  .container {
+    padding-top: 20px;
+  }
+  .row {
+    border: 1 solid $generic_grey;
+    border-radius: 4px;
+    padding: 10px 0;
+    .col-lg-12 {
+      #columnchart_material {
+        margin: 0 auto;
+      }
+    }
+    .col-md-2 {
+      i {
+        color: black;
+        height: 12px;
+      }
+    }
+    .caption {
+      p {
+        text-align: center;
+      }
+      a {
+        width: 49%;
+      }
+      .btn {
+        background-color: $generic_navy;
+      }
+    }
   }
 }
