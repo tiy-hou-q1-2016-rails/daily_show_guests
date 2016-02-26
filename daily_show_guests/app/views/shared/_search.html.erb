@@ -17,7 +17,7 @@
        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">General Occupation <span class="caret"></span></a>
        <ul class="dropdown-menu">
          <li><a href="/guests/list">Any</a></li>
-         <% @guests.map{|guest| guest.occupation_group}.uniq.sort.each do |occupation| %>
+         <% @guests_all.map{|guest| guest.occupation_group}.uniq.sort.each do |occupation| %>
            <li><a href="/occupations/<%= occupation %>"><%= occupation.titleize %></a></li>
          <% end %>
        </ul>
@@ -25,10 +25,10 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
       <li class="dropdown">
-       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Guest Name (all)<span class="caret"></span></a>
+       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Guest Name (All)<span class="caret"></span></a>
        <ul class="dropdown-menu">
          <li><a href="/guests/list">Any</a></li>
-         <% @guests.map{|guest| guest.name}.uniq.sort.each do |name| %>
+         <% @guests_all.map{|guest| guest.name}.uniq.sort.each do |name| %>
            <li><a href="/names/<%= name %>"><%= name.titleize %></a></li>
          <% end %>
        </ul>
