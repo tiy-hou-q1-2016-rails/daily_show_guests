@@ -12,13 +12,15 @@
   </li>
   </ul>
 </div>
-
+<div class="jumbotron">
+  <h1></h1>
+</div>
+<%= render "shared/search" %>
 <div class="container">
   <div class="page-header">
     <h1>Daily Show Guests <small>data from fivethirtyeight</small></h1>
   </div>
 </div>
-<%= render "shared/search" %>
 <div class="container">
   <% if @guests.empty? %>
   <div class="alert alert-info">
@@ -33,37 +35,39 @@
       <em><%= pluralize @guest_count, 'guest' %> found: <strong><%= params[:search_text] %></strong></em>
     </p>
   <% end %>
-  <table class="table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th>Guest Name</th>
-        <th>Year</th>
-        <th>Air Date</th>
-        <th>Specific Occupation</th>
-        <th>General Occupation (Group)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @guests.each do |guest| %>
+  <div class="panel panel-default">
+    <table class="table table-bordered table-striped">
+      <thead>
         <tr>
-          <td>
-            <%= guest.name.titleize %>
-          </td>
-          <td>
-            <%= guest.year %>
-          </td>
-          <td>
-            <%= guest.show_date %>
-          </td>
-          <td>
-            <%= guest.occupation.titleize %>
-          </td>
-          <td>
-            <%= guest.occupation_group.titleize %>
-          </td>
+          <th>Guest Name</th>
+          <th>Year</th>
+          <th>Air Date</th>
+          <th>Specific Occupation</th>
+          <th>General Occupation (Group)</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @guests.each do |guest| %>
+          <tr>
+            <td>
+              <%= guest.name.titleize %>
+            </td>
+            <td>
+              <%= guest.year %>
+            </td>
+            <td>
+              <%= guest.show_date %>
+            </td>
+            <td>
+              <%= guest.occupation.titleize %>
+            </td>
+            <td>
+              <%= guest.occupation_group.titleize %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
   <nav><%= paginate @guests %></nav>
 </div>
