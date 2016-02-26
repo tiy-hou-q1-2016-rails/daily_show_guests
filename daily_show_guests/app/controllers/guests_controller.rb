@@ -48,6 +48,7 @@ class GuestsController < ApplicationController
       sql_query = ' '
     end
     @guests = fetch_guests(sql_query)
+    @guests_all = @guests
 
     @guests = @guests.select{|guest| guest.year == params[:year]}
     if @guests.nil?
@@ -69,6 +70,7 @@ class GuestsController < ApplicationController
       sql_query = ' '
     end
     @guests = fetch_guests(sql_query)
+    @guests_all = @guests
 
     @guests = @guests.select{|guest| guest.occupation_group == params[:occupation_group]}
     if @guests.nil?
@@ -90,6 +92,7 @@ class GuestsController < ApplicationController
       sql_query = ' '
     end
     @guests = fetch_guests(sql_query)
+    @guests_all = @guests
 
     @guests = @guests.select{|guest| guest.name == params[:name]}
     if @guests.nil?
@@ -110,6 +113,7 @@ class GuestsController < ApplicationController
       sql_query = ' '
     end
     @guests = fetch_guests(sql_query)
+    @guests_all = @guests
 
     @guests = @guests.select{|guest| guest.name_starter == params[:name_starter]}
     if @guests.nil?
