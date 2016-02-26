@@ -57,9 +57,15 @@ $generic_navy: #003366;
         height: 12px;
       }
     }
-    .caption {
+    img {
+      border-radius: 5px;
+      max-width: 100%;
+      min-width: 100%;
+    }
+    #photo-wiki {
       p {
         text-align: center;
+        margin: 0;
       }
       a {
         width: 49%;
@@ -67,6 +73,20 @@ $generic_navy: #003366;
       .btn {
         background-color: $generic_navy;
       }
+      img {
+        display:inline;
+        min-width: 0;
+      }
     }
   }
+  h3 {
+    font-family: 'Lobster', cursive;
+    font-size: 30px;
+  }
+  p {
+    font-family: 'Noto Sans', sans-serif;
+  }
+}
+#linechart_material {
+  margin: 0 auto;
 }

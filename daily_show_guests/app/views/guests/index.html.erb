@@ -5,7 +5,7 @@
     <title>Report</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      google.charts.load('current', {'packages':['bar']});
+      google.charts.load('current', {'packages':['bar', 'line']});
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable(
@@ -44,6 +44,51 @@
         drawChart();
       });
     </script>
+    <script type="text/javascript">
+      google.charts.setOnLoadCallback(drawLineChart);
+
+      function drawLineChart() {
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('number', 'Year');
+        data.addColumn('number', 'Percent of Politicians');
+        data.addColumn('number', 'Election Years');
+
+        data.addRows([
+          [1999,  0.37,  0],
+          [2000,  0.30,  1],
+          [2001,  0.25,  0],
+          [2002,  0.11,  0],
+          [2003,  0.11,  0],
+          [2004,  0.98,  1],
+          [2005,  0.76,  0],
+          [2006,  0.12,  0],
+          [2007,  0.16,  0],
+          [2008,  0.12,  1],
+          [2009,  0.58,  0],
+          [2010,  0.69,  0],
+          [2011,  0.48,  0],
+          [2012,  0.53,  1],
+          [2013,  0.66,  0],
+          [2014,  0.48,  0],
+          [2015,  0.42,  0]
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Percentage of Political Guests and Election Years',
+            subtitle: 'percent of total guest count'
+          },
+        };
+
+        var chart = new google.charts.Line(document.getElementById('linechart_material'));
+
+        chart.draw(data, options);
+      };
+      $(window).resize(function(){
+        drawLineChart();
+      });
+    </script>
   </head>
   <body>
     <div class="home-return">
@@ -61,21 +106,38 @@
       </div>
       <div class="container">
         <div class="row">
-          <div class="col-md-2">HIIIII
-          </div>
-          <div class="col-md-4">I'm 4</div>
-          <div class="col-md-6">
+          <div class="col-md-8">
+            <div class="thumbnail">
+              <div class="caption">
+                <h3>“I’m not going to censor myself to comfort your ignorance.”</h3>
+                <p>-Jon Stewart</p>
+              </div>
+            </div>
             <div class="thumbnail">
               <%= image_tag "jon_stewart.jpg" %>
-              <div class="caption">
+              <div class="caption" id="photo-wiki">
                 <p>
                   <a href="https://en.wikipedia.org/wiki/The_Daily_Show" class="btn btn-primary" role="button" target="_blank">
                     <i class="fa fa-wikipedia-w"></i>&nbsp; Wikipedia
                   </a>
-                  <a href="https://en.wikipedia.org/wiki/The_Daily_Show" class="btn btn-primary" role="button" target="_blank">
-                    <i class="fa fa-wikipedia-w"></i>&nbsp; Wikipedia
+                  <a href="http://www.cc.com/shows/the-daily-show-with-trevor-noah" class="btn btn-primary" role="button" target="_blank">
+                    <%= image_tag "comedy_central.png", :style => 'height: 16px; filter: invert(1); -webkit-filter: invert(1); -moz-filter: invert(1);'%>
+                  </i>&nbsp; Comedy Central
                   </a>
                 </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="thumbnail">
+              <div class="caption">
+                <%= image_tag "jon_stewart_cartoon.jpg" %>
+              </div>
+            </div>
+            <div class="thumbnail">
+              <div class="caption">
+                <h3>“I have complete faith in the continued absurdity of whatever’s going on.”</h3>
+                <p>-Jon Stewart</p>
               </div>
             </div>
           </div>
@@ -88,9 +150,26 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4">I'm 4</div>
-          <div class="col-md-4">I'm 4</div>
-          <div class="col-md-4">I'm 4</div>
+          <div class="col-md-4">
+            <div class="thumbnail">
+              <div class="caption">
+                <%= image_tag "https://media.giphy.com/media/d1QF5hXsz05kA/giphy.gif" %>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="thumbnail">
+              <div id="linechart_material" style="width: 95%; height: 450px"></div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="thumbnail">
+              <div class="caption">
+                <h3>“If we amplify everything, we hear nothing.”</h3>
+                <p>-Jon Stewart</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
