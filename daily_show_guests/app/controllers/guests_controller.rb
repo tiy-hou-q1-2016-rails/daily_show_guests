@@ -32,6 +32,8 @@ class GuestsController < ApplicationController
       sql_query = ' '
     end
     @guests = fetch_guests(sql_query)
+    @guests_all = @guests
+
     @guest_count = @guests.count
     @guests = Kaminari.paginate_array(@guests).page(params[:page]).per(100)
 
