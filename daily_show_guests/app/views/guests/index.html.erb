@@ -5,7 +5,7 @@
     <title>Report</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      google.charts.load('current', {'packages':['bar', 'line']});
+      google.charts.load('current', {'packages':['bar', 'line', 'corechart']});
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable(
@@ -27,6 +27,7 @@
         drawChart();
       });
     </script>
+
     <script type="text/javascript">
       google.charts.setOnLoadCallback(drawLineChart);
 
@@ -34,8 +35,8 @@
 
         var data = new google.visualization.DataTable();
         data.addColumn('number', 'Year');
-        data.addColumn('number', 'Percent of Politicians');
-        data.addColumn('number', 'Election Years');
+        data.addColumn('number', 'Politicians');
+        data.addColumn('number', 'ElectionYears');
 
         data.addRows([
           [1999,  0.37,  0],
@@ -57,20 +58,18 @@
           [2015,  0.42,  0]
         ]);
 
-        var options = {
-          chart: {
-            // title: 'Percentage of Political Guests and Election Years',
-            // subtitle: 'percent of total guest count'
-          },
-        };
 
-        var chart = new google.charts.Line(document.getElementById('linechart_material'));
 
-        chart.draw(data, options);
+
+          var chart = new google.visualization.LineChart(document.getElementById('linechart_material'));
+
+        chart.draw(data, {
+          legend: { position: 'bottom' }
+        });
       };
-      $(window).resize(function(){
-        drawLineChart();
-      });
+      // $(window).resize(function(){
+      //   drawLineChart();
+      // });
     </script>
   </head>
   <body>
@@ -156,7 +155,7 @@
                   Percent of Total Guest Count
                 </small>
               </h4>
-              <div id="linechart_material" style="width: 95%; height: 450px"></div>
+              <div id="linechart_material" style=""></div>
               <hr>
               <p>desc</p>
             </div>
