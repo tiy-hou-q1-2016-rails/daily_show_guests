@@ -135,7 +135,12 @@
               </h4>
               <div id="columnchart_material" style="width: 95%; height: 750px;"></div>
               <hr>
-              <p>desc</p>
+              <p>Bar chart shows the general occupation category for the
+                <strong><%= @guests.count %></strong> Daily Show guests
+                over the <strong><%= @guests.map{|guest| guest.year}.uniq.count %></strong> year duration
+                of the show with Jon Stewart as host. The y-axis represents the number of guests of a particular
+                category per year.
+              </p>
             </div>
           </div>
         </div>
@@ -157,7 +162,8 @@
               </h4>
               <div id="linechart_material" style=""></div>
               <hr>
-              <p>desc</p>
+              <p>Line chart attempts to uncover a relationship between the proportion of political
+              guests on the show and presidential election years. </p>
             </div>
           </div>
           <div class="col-md-4">
