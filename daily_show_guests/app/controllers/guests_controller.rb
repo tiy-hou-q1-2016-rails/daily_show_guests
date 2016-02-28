@@ -37,7 +37,6 @@ class GuestsController < ApplicationController
       current_row << 0 if year%4 != 0
       @line_chart_data << current_row
     end
-    puts @line_chart_data.inspect
 
   end
 
