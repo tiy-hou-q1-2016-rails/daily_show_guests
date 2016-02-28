@@ -33,7 +33,7 @@
         var data = new google.visualization.DataTable();
         data.addColumn('number', 'Year');
         data.addColumn('number', 'Politicians');
-        data.addColumn('number', 'ElectionYears');
+        data.addColumn('number', 'Election Years');
 
         data.addRows(
           <%= raw (raw @line_chart_data).gsub('"', '\'') %>
@@ -121,11 +121,11 @@
               </h4>
               <div id="columnchart_material" style="width: 95%; height: 750px;"></div>
               <hr>
-              <p>Bar chart shows the general occupation category for the
+              <p><small>Bar chart shows the general occupation category for the
                 <strong><%= @guests.count %></strong> Daily Show guests
                 over the <strong><%= @guests.map{|guest| guest.year}.uniq.count %></strong> year duration
                 of the show with Jon Stewart as host. The y-axis represents the number of guests of a particular
-                category per year.
+                category per year.</small>
               </p>
             </div>
           </div>
@@ -146,10 +146,11 @@
                   Percent of Total Guest Count
                 </small>
               </h4>
-              <div id="linechart_material" style=""></div>
+              <div id="linechart_material" style="width: 100%; min-height: 270px"></div>
               <hr>
-              <p>Line chart attempts to uncover a relationship between the proportion of political
-              guests on the show and presidential election years. </p>
+              <p><small>Line chart attempts to uncover a relationship between the proportion of political
+              guests (i.e. general occupation group is listed as "Politician," "Political Aide," or "Government")
+              on the show and presidential election years.</small></p>
             </div>
           </div>
           <div class="col-md-4">
