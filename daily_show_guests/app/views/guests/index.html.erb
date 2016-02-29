@@ -23,9 +23,6 @@
 
         chart.draw(data, options);
       };
-      $(window).resize(function(){
-        drawChart();
-      });
     </script>
 
     <script type="text/javascript">
@@ -36,40 +33,29 @@
         var data = new google.visualization.DataTable();
         data.addColumn('number', 'Year');
         data.addColumn('number', 'Politicians');
-        data.addColumn('number', 'ElectionYears');
+        data.addColumn('number', 'Election Years');
 
-        data.addRows([
-          [1999,  0.37,  0],
-          [2000,  0.30,  1],
-          [2001,  0.25,  0],
-          [2002,  0.11,  0],
-          [2003,  0.11,  0],
-          [2004,  0.98,  1],
-          [2005,  0.76,  0],
-          [2006,  0.12,  0],
-          [2007,  0.16,  0],
-          [2008,  0.12,  1],
-          [2009,  0.58,  0],
-          [2010,  0.69,  0],
-          [2011,  0.48,  0],
-          [2012,  0.53,  1],
-          [2013,  0.66,  0],
-          [2014,  0.48,  0],
-          [2015,  0.42,  0]
-        ]);
+        data.addRows(
+          <%= raw (raw @line_chart_data).gsub('"', '\'') %>
+        );
 
+        var options = {
+          hAxis: {format: ''},
+          vAxis: {format: 'percent'},
+          legend: {position: 'bottom'}
+        };
 
+        var chart = new google.visualization.LineChart(document.getElementById('linechart_material'));
 
-
-          var chart = new google.visualization.LineChart(document.getElementById('linechart_material'));
-
-        chart.draw(data, {
-          legend: { position: 'bottom' }
-        });
+        chart.draw(data, options);
       };
-      // $(window).resize(function(){
-      //   drawLineChart();
-      // });
+    </script>
+
+    <script type ="text/javascript">
+      $(window).resize(function(){
+        drawChart();
+        drawLineChart();
+      });
     </script>
   </head>
   <body>
@@ -135,11 +121,11 @@
               </h4>
               <div id="columnchart_material" style="width: 95%; height: 750px;"></div>
               <hr>
-              <p>Bar chart shows the general occupation category for the
+              <p><small>Bar chart shows the general occupation category for the
                 <strong><%= @guests.count %></strong> Daily Show guests
                 over the <strong><%= @guests.map{|guest| guest.year}.uniq.count %></strong> year duration
                 of the show with Jon Stewart as host. The y-axis represents the number of guests of a particular
-                category per year.
+                category per year.</small>
               </p>
             </div>
           </div>
@@ -160,10 +146,11 @@
                   Percent of Total Guest Count
                 </small>
               </h4>
-              <div id="linechart_material" style=""></div>
+              <div id="linechart_material" style="width: 100%; min-height: 270px"></div>
               <hr>
-              <p>Line chart attempts to uncover a relationship between the proportion of political
-              guests on the show and presidential election years. </p>
+              <p><small>Line chart attempts to uncover a relationship between the proportion of political
+              guests (i.e. general occupation group is listed as "Politician," "Political Aide," or "Government")
+              on the show and presidential election years.</small></p>
             </div>
           </div>
           <div class="col-md-4">

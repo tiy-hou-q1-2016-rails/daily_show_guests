@@ -4,8 +4,6 @@ class GuestsController < ApplicationController
 
     @bar_chart_column = []
     @bar_chart_column = @guests.map {|guest| guest.occupation_group.titleize}.uniq.sort
-
-
     @bar_chart_rows = []
     (1999..2015).to_a.each do |year|
       current_row = []
@@ -19,7 +17,26 @@ class GuestsController < ApplicationController
     end
     @bar_chart_column.unshift('Year')
     @bar_chart_data = @bar_chart_rows.unshift(@bar_chart_column)
-    puts @bar_chart_data.inspect
+
+    @line_chart_data = []
+    (1999..2015).to_a.each do |year|
+      current_row = []
+      current_row << year
+      total_guests = @guests.select {|guest| guest.year == year.to_s}.count
+      total_politics = @guests
+        .select {|guest| guest.year == year.to_s}
+        .select {|guest| guest.occupation_group.include? ('politician')}.count
+      total_politics += @guests
+        .select {|guest| guest.year == year.to_s}
+        .select {|guest| guest.occupation_group.include? ('government')}.count
+      total_politics += @guests
+        .select {|guest| guest.year == year.to_s}
+        .select {|guest| guest.occupation_group.include? ('political aide')}.count
+      current_row << (total_politics / total_guests.to_f).round(4)
+      current_row << 1 if year%4 ==0
+      current_row << 0 if year%4 != 0
+      @line_chart_data << current_row
+    end
 
   end
 
