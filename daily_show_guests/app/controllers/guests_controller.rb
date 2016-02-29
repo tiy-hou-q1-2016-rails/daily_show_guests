@@ -38,6 +38,7 @@ class GuestsController < ApplicationController
       @line_chart_data << current_row
     end
 
+
   end
 
   def list
